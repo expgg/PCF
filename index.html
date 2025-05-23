@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Plutonium Files by Exploriot</title>
+
+<!-- Dark-themed favicon as inline SVG data URI -->
+<link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3e%3crect width='64' height='64' fill='%23000'/%3e%3ctext x='32' y='45' font-family='Orbitron, monospace' font-weight='bold' font-size='40' fill='%2300ffff' text-anchor='middle'%3eE%3c/text%3e%3c/svg%3e" />
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0;
+    height: 100%;
+    font-family: 'Orbitron', monospace, sans-serif;
+    background: #000;
+    overflow-x: hidden;
+    color: #00ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Container for content to be on top */
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 600px; /* wider now */
+    width: 90%;
+    padding: 2.5rem 3rem;
+    background: rgba(0,0,0,0.75);
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00ffff;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    color: #ff00cc;
+    text-shadow: 0 0 12px #ff00cc;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #00ffff;
+    text-shadow: 0 0 7px #00ffff;
+    margin-bottom: 2.2rem;
+    font-weight: 600;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  button {
+    background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    padding: 18px 30px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 9px #00ffff;
+    font-weight: 700;
+  }
+
+  button:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 14px #00ffff, 0 0 55px #00ffff;
+    text-shadow: none;
+  }
+
+  .footer {
+    margin-top: 3.5rem;
+    font-size: 1rem;
+    color: #999;
+    text-shadow: 0 0 7px #ff00cc;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 16px 25px;
+    }
+  }
+
+  /* Smooth pulsing radial glow background */
+  #bgCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: #000;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container" role="main" aria-label="Plutonium torrent files download by Exploriot">
+  <h1>Plutonium Torrent Files</h1>
+  <p>Powered by <strong>Exploriot</strong> — Ready to Download</p>
+
+  <div class="button-container">
+    <button onclick="downloadFile('https://github.com/expgg/PCF/raw/ec92182d26cf8a32fbaf1d0578c1c37585a58d84/BO1.torrent')">🕹️ Call of Duty: Black Ops 1</button>
+    <button onclick="downloadFile('https://github.com/expgg/PCF/raw/ec92182d26cf8a32fbaf1d0578c1c37585a58d84/BO2.torrent')">🕹️ Call of Duty: Black Ops 2</button>
+    <button onclick="downloadFile('https://github.com/expgg/PCF/raw/ec92182d26cf8a32fbaf1d0578c1c37585a58d84/WAW.torrent')">🕹️ Call of Duty: World at War</button>
+  </div>
+
+  <div class="footer">
+    Plutonium Files by <strong>Exploriot</strong>
+  </div>
+</div>
+
+<script>
+  // Download function for torrents
+  function downloadFile(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = url.split('/').pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  // Smooth pulsing neon radial glow background
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let w, h;
+  function resize() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * devicePixelRatio;
+    canvas.height = h * devicePixelRatio;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let pulse = 0;
+  function animate(t = 0) {
+    pulse += 0.02;
+    if (pulse > Math.PI * 2) pulse -= Math.PI * 2;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Create a radial gradient that pulses gently
+    const gradient = ctx.createRadialGradient(w/2, h/2, w/10, w/2, h/2, w/2);
+    const alpha = 0.3 + 0.15 * Math.sin(pulse); // pulsate alpha between 0.15 and 0.45
+
+    gradient.addColorStop(0, `rgba(0, 255, 255, ${alpha.toFixed(2)})`);
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+
+</body>
+</html>
